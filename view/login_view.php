@@ -12,7 +12,7 @@
     <div><input type="password" name="password" placeholder="パスワード"></div>
     <div><button type="submit">ログイン</div>
   </form>
-  <div class="account-create">
+  <div>
     <!--新規登録のファイルへ -->
     <h2><a href=".php">初めての方はこちら</a></h2>
   </div>

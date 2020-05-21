@@ -1,5 +1,6 @@
 <?php
 //特殊文字をHTMLエンティティに変換する
+// ここのentity_strは'h'一文字に置き換えてok
 function entity_str($str) {
     return htmlspecialchars($str, ENT_QUOTES, HTML_CHARACTER_SET);
 }
