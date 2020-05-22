@@ -26,15 +26,15 @@
 
     <script>
       function init(){
-        var shinagawa = {
-          lat: 35.6284477,
-          lng: 139.7366322
+        var yokohama = {
+          lat: 35.4657901,
+          lng: 139.6201245
         };
         var map_box = document.getElementById('map_box');
         var map = new google.maps.Map(
           map_box,
           {
-            center: shinagawa,
+            center: yokohama,
             zoom: 15,
             disableDefaultUI: true,
             zoomControl: true,
@@ -42,14 +42,7 @@
           }
         )
         
-        //$itemsをjs形式で呼び出し
-        var items = JSON.parse('<?php echo $items_json; ?>');
-        
-        
-        //for文でitemsを取り出す
-        for (var i = 0; i < items.length; i++) {
-          var name = items[i];
-        }
+    
         
         // ジオコーダーの生成
         var geocoder = new google.maps.Geocoder();
@@ -121,13 +114,22 @@
                 //document.getElementById('searched_address').value = results[0].formated...
               })
             });
-          var marker = new google.maps.Marker({
-              map: map,
-              position: shinagawa,
-              title: "<?php print 'aiueo'; ?>" // マウスオーバー時に表示。
-            });
             
-          
+              //$itemsをjs形式で呼び出し
+            var items = JSON.parse('<?php echo $items_json; ?>');
+            var markers = [];
+            for (var i = 0; i < items.length; i++) {
+              var item = items[i]["comment"];
+              markers.push( new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(items[i]["lat"],items[i]["lng"]),
+                title: item
+              }
+                
+              ));
+            }
+            
+         
           
       }
     </script>

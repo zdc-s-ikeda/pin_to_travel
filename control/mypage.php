@@ -13,6 +13,7 @@ $items = get_post_places($link, $sql);
 //$itemsをjs形式に変換(itemsには、name, comment, imgが一つずつ入っている)
 $items_json = json_encode($items, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
+
 //db切断
 close_db_connect($link);
 
