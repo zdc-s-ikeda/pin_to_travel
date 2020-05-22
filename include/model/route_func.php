@@ -4,6 +4,10 @@ function h($str) {
     return htmlspecialchars($str, ENT_QUOTES, HTML_CHARACTER_SET);
 }
 
+function is_post(){
+    return $_SERVER['REQUEST_METHOD'] === TRUE;
+}
+
 //DBハンドル取得
 function get_db_connect() {
  
@@ -106,4 +110,37 @@ function select_place_list($mylist_id, $link){
             ORDER BY
                 place_order";
     return get_as_array($link, $sql);
+}
+
+function delete_place($post_place_id, $link){
+    $sql = "DELETE FROM
+                mylist_table
+            WHERE
+                post_place_id = {$post_place_id}";
+    return result_query($link, $sql);
+}
+
+function update_place($post_place_id, $place_order, $link){
+    $sql = "UPDATE
+                place_list_table
+            SET
+                place_order = '{$place_order}'
+            WEHRE
+                post_place_id = '{$post_place_id}'";
+    return result_query($link, $sql);
+}
+
+function is_post(){
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
+function is_blank($value){
+    return $value === '';
+}
+
+function get_post($name){
+    if (isset($_POST[$name]) === TRUE){
+        return trim($_POST[$name]);
+    }
+    return '';
 }

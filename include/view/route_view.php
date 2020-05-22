@@ -41,17 +41,21 @@
                             <button
                                 class="display"
                                 data-address="<?php echo h($place['lat'],$place['lng']); ?>"
-                                data-name="<?php echo h($place['name_name']); ?>"
+                                data-name="<?php echo h($place['place_name']); ?>"
                             >
                                 表示
                             </button>
                         </td>
                         <td>
-                          <a href="places_edit.php?place_id=<?php echo h($place['post_place_id']); ?>">編集</a>
+                          <form method="post" action="place_order.php">
+                            <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
+                            <input type="hidden" name="post_places_id" value="<?php echo h($place['post_places_id']); ?>">
+                            <input type="submit" value="変更">
+                          </form>
                         </td>
                         <td>
                           <form method="post" action="places_delete.php">
-                            <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
+                            <input type="hidden" name="post_places_id" value="<?php echo h($place['post_places_id']); ?>">
                             <input type="submit" value="削除">
                           </form>
                         </td>
