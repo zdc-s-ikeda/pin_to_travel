@@ -1,4 +1,13 @@
 <?php
+function h($value) {
+     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+ }
+//postされた値を受け取る
+function get_post($key) {
+    if (isset($_POST[$key]) === TRUE) {
+        return trim($_POST[$key]);
+    }
+}
 //db系
  //db接続
 function get_db_connect() {
@@ -57,7 +66,7 @@ function get_db_connect() {
 //
 
 //post_places_tableを表示
-function get_post_places($link, $sql) {
+function get_post_places($link) {
     $sql = "
         SELECT
             *
@@ -65,4 +74,19 @@ function get_post_places($link, $sql) {
             post_places_table
         ";
     return get_as_array($link, $sql);
+}
+
+function insert_to_place_list_table($link) {
+    $sql ="
+        INSERT INTO
+            place_list_table
+        VALUES
+            route_id = '{$route_id}',
+            place_id = '{$place_id}',
+            place_order = '{$place_order}',
+            created_date = '{$log}',
+            updated_date = '{$log}
+        ";
+        
+        return do_query($link, $sql);
 }

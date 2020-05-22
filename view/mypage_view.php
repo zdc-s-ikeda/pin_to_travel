@@ -17,12 +17,29 @@
     </p>
     <p id="search_result"></p>
     <div id="map_box"></div>
+    
+    <navigation>
     <li><a href="">プレイス</a></li>
     <li><a href="">リスト</a></li>
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>
+    </navigation>
+    
+    <div>
+      <?php foreach ($items as $item) { ?>
+        <form method="post" action="mypage.php">
+          <li>
+          <label><?php print h($item['place_name']) ?>
+          <input type="submit" value="リストに追加">
+          <input type="text" name="place_order">
+          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
+          </label>
+          </li>
+      <?php } ?>
+      </form>
+    </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
+    
 
     <script>
       function init(){
@@ -118,20 +135,28 @@
               //$itemsをjs形式で呼び出し
             var items = JSON.parse('<?php echo $items_json; ?>');
             var markers = [];
-            for (var i = 0; i < items.length; i++) {
-              var item = items[i]["comment"];
-              markers.push( new google.maps.Marker({
+            //for (var i = 0; i < items.length; i++) {
+              //var item = items[i];
+            for (var item of items) {
+              
+              var added_marker = new google.maps.Marker({
                 map: map,
-                position: new google.maps.LatLng(items[i]["lat"],items[i]["lng"]),
-                title: item
-              }
-                
-              ));
+                position: new google.maps.LatLng(item["lat"],item["lng"])
+              });
+              var added_info_window = new google.maps.InfoWindow({
+                content: item['comment'] + '<br>' + item['img']
+              });
+              
+              added_info_window.open(map, added_marker);
+              
+              markers.push(added_marker);
             }
             
          
           
       }
     </script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
 </body>
 </html>
