@@ -1,5 +1,9 @@
 <?php
 
+function h($str) {
+    return htmlspecialchars($str, ENT_QUOTES, HTML_CHARACTER_SET);
+}
+
 //DBハンドル取得
 function get_db_connect() {
  
@@ -71,4 +75,35 @@ function select_route($mylist_id,$link){
                 route_order";
     return get_as_array($link, $sql);
     
+}
+
+//place_list_table select
+function select_place_list($mylist_id, $link){
+    $sql = "SELECT
+                place_name,
+                comment,
+                img,
+                status,
+                lat,
+                lng,
+                url,
+                mylist_name,
+                place_list_table.post_places_id,
+                place_order,
+                mylist_table.mylist_id
+            FROM
+                place_list_table
+            JOIN
+                post_places_table
+            ON
+                place_list_table.post_places_id = post_places_table.post_places_id
+            JOIN
+                mylist_table
+            ON
+                place_list_table.mylist_id = mylist_table.mylist_id
+            WHERE
+                place_list_table.mylist_id = '{$mylist_id}'
+            ORDER BY
+                place_order";
+    return get_as_array($link, $sql);
 }

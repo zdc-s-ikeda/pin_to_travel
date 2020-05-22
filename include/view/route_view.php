@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>マイルート</title>
     <style>
       #map_box {
         width: 800px;
@@ -17,16 +17,57 @@
     </p>
     <p id="search_result"></p>
     <div id="map_box"></div>
-
+    <form method="post">
+      <h2>一覧</h2>
+      <?php if(count($post_place_list) > 0){ ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>場所名</th>
+                    <th>コメント</th>
+                    <th>URL</th>
+                    <th>表示</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($post_place_list as $place){ ?>
+                    <tr>
+                        <td><?php echo h($place['place_name']); ?></td>
+                        <td><?php echo h($place['comment']); ?></td>
+                        <td><?php echo h($place['url']); ?></td>
+                        <td>
+                            <button
+                                class="display"
+                                data-address="<?php echo h($place['lat'],$place['lng']); ?>"
+                                data-name="<?php echo h($place['name_name']); ?>"
+                            >
+                                表示
+                            </button>
+                        </td>
+                        <td>
+                          <a href="places_edit.php?place_id=<?php echo h($place['post_place_id']); ?>">編集</a>
+                        </td>
+                        <td>
+                          <form method="post" action="places_delete.php">
+                            <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
+                            <input type="submit" value="削除">
+                          </form>
+                        </td>
+                        </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php } else { ?>
+        <p>登録されたプレイスはありません。</p>
+    <?php } ?>
+    </form>
     <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
 
     <script>
       function init(){
         var place_list = JSON.parse('<?php echo $place_list_json; ?>');
-        var shinagawa = {
-          lat: 35.6284477,
-          lng: 139.7366322
-        };
         var map_box = document.getElementById('map_box');
         var map = new google.maps.Map(
           map_box,
@@ -38,68 +79,68 @@
             clickableIcons: false,
           }
         );
-        // ジオコーダーの生成
-        var geocoder = new google.maps.Geocoder();
-        document.getElementById('search')
-          .addEventListener(
-            'click',
-            function(){
-              geocoder.geocode(
-                // 第一引数にジオコーディングのオプションを設定
-                {
-                  address: document.getElementById('address').value
-                },
-                // 第二引数に結果取得時の動作を設定
-                function(results, status){
-                  // 失敗時の処理
-                  if(status !== 'OK'){
-                    alert('ジオコーディングに失敗しました。結果: ' + status);
-                    return;
-                  }
-                  // 成功した場合、resultsの0番目に結果が取得される。
-                  if(!results[0]){
-                    alert('結果が取得できませんでした');
-                    return;
-                  }
-                  // マップの中心を移動
-                  map.panTo(results[0].geometry.location);
+        // // ジオコーダーの生成
+        // var geocoder = new google.maps.Geocoder();
+        // document.getElementById('search')
+        //   .addEventListener(
+        //     'click',
+        //     function(){
+        //       geocoder.geocode(
+        //         // 第一引数にジオコーディングのオプションを設定
+        //         {
+        //           address: document.getElementById('address').value
+        //         },
+        //         // 第二引数に結果取得時の動作を設定
+        //         function(results, status){
+        //           // 失敗時の処理
+        //           if(status !== 'OK'){
+        //             alert('ジオコーディングに失敗しました。結果: ' + status);
+        //             return;
+        //           }
+        //           // 成功した場合、resultsの0番目に結果が取得される。
+        //           if(!results[0]){
+        //             alert('結果が取得できませんでした');
+        //             return;
+        //           }
+        //           // マップの中心を移動
+        //           map.panTo(results[0].geometry.location);
         
-                  document.getElementById('search_result').innerHTML = results[0].formatted_address;
-                }
-              );
-            }
-          );
+        //           document.getElementById('search_result').innerHTML = results[0].formatted_address;
+        //         }
+        //       );
+        //     }
+        //   );
         
-        // クリック位置をリバースジオコーディング
-        map.addListener('click', function(e){
-          geocoder.geocode({
-            location: e.latLng
-          }, function(results, status){
-            if(status !== 'OK'){
-              alert('リバースジオコーディングに失敗しました。結果: ' + status);
-              return;
-            }
+        // // クリック位置をリバースジオコーディング
+        // map.addListener('click', function(e){
+        //   geocoder.geocode({
+        //     location: e.latLng
+        //   }, function(results, status){
+        //     if(status !== 'OK'){
+        //       alert('リバースジオコーディングに失敗しました。結果: ' + status);
+        //       return;
+        //     }
         
-            // console.log(results);
-            if(!results[0]){
-              alert('結果が取得できませんでした。');
-              return;
-            }
+        //     // console.log(results);
+        //     if(!results[0]){
+        //       alert('結果が取得できませんでした。');
+        //       return;
+        //     }
         
-            // クリックした位置にマーカーを立てる
-            var added_marker = new google.maps.Marker({
-              position: e.latLng, // クリックした箇所
-              map: map,
-              animation: google.maps.Animation.DROP
-            });
-            // マーカーに情報ウィンドウを紐付け、
-            // リバースジオコーディングで取得した住所を表示する。
-            var infoWindow = new google.maps.InfoWindow({
-              content: results[0].formatted_address,
-            });
-            infoWindow.open(map, added_marker);
-          })
-        });
+        //     // クリックした位置にマーカーを立てる
+        //     var added_marker = new google.maps.Marker({
+        //       position: e.latLng, // クリックした箇所
+        //       map: map,
+        //       animation: google.maps.Animation.DROP
+        //     });
+        //     // マーカーに情報ウィンドウを紐付け、
+        //     // リバースジオコーディングで取得した住所を表示する。
+        //     var infoWindow = new google.maps.InfoWindow({
+        //       content: results[0].formatted_address,
+        //     });
+        //     infoWindow.open(map, added_marker);
+        //   })
+        // });
         
         
        
@@ -150,7 +191,6 @@
           });
         }
       }
-      console.log('place_list')
     </script>
 </body>
 </html>
