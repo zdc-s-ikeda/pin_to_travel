@@ -5,7 +5,7 @@ require_once 'model/ec_func.php';
 session_start();
 if(isset($_SESSION['user_id']) === TRUE){
     //ログイン済みならトップへ
-    redirect_to('top.php');
+    redirect_to('mypage.php');
 }
 $errors = [];
 if(isset($_SESSION['login_error']) === TRUE){
