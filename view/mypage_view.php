@@ -30,13 +30,13 @@
         <form method="post" action="mypage.php">
           <li>
           <label><?php print h($item['place_name']) ?>
-          <input type="submit" value="リストに追加">
           <input type="text" name="place_order">
           <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
+          <input type="submit" value="リストに追加">
           </label>
           </li>
+        </form>
       <?php } ?>
-      </form>
     </div>
 
     

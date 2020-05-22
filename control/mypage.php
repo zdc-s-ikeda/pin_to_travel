@@ -4,6 +4,7 @@ require_once '../model/function.php';
 require_once '../conf/const.php';
 
 $log = date('Y-m-d h:i:s');
+$route_id = 1;
 //post_places_tableの情報を表示
 //db接続
 $link = get_db_connect();
@@ -19,17 +20,18 @@ close_db_connect($link);
 
 
 //postされてきた値をリストに追加
-if (isset($_POST['place_id']) === TRUE) {
+if (is_post() === TRUE) {
     
     //値を受け取り
     $place_id = get_post('place_id');
     $place_order = get_post('place_order');
-    var_dump($place_id);
+    var_dump($_POST);
     //db接続
     $link = get_db_connect();
     
     //ルートリストに場所を追加
-    $result = insert_to_place_list_table($link);
+    $result = insert_to_place_list_table($link, $place_id, $place_order, $route_id, $log);
+    
     
     //db切断
     close_db_connect($link);

@@ -1,4 +1,10 @@
 <?php
+function get_request_method() {
+   return $_SERVER['REQUEST_METHOD'];
+}
+function is_post() {
+    return get_request_method() === 'POST';
+}
 function h($value) {
      return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
  }
@@ -76,17 +82,22 @@ function get_post_places($link) {
     return get_as_array($link, $sql);
 }
 
-function insert_to_place_list_table($link) {
+function insert_to_place_list_table($link, $place_id, $place_order, $route_id) {
+    $log = date('Y-m-d h:i:s');
     $sql ="
         INSERT INTO
             place_list_table
-        VALUES
-            route_id = '{$route_id}',
-            place_id = '{$place_id}',
-            place_order = '{$place_order}',
-            created_date = '{$log}',
-            updated_date = '{$log}
+            (route_id, 
+            place_id, 
+            place_order,
+            created_date,
+            updated_date)
+        VALUES(
+            '{$route_id}',
+            '{$place_id}',
+            '{$place_order}',
+            '{$log}',
+            '{$log}')
         ";
-        
         return do_query($link, $sql);
 }
