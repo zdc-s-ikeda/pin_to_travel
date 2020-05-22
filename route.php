@@ -16,12 +16,10 @@ $post_place_list = select_place_list($mylist_id, $link);
 if(empty($post_place_list) === TRUE){
     $errors[] = 'place_list_table取得失敗';
 }
-var_dump($post_place_list);
 
 $place_list_json = json_encode($post_place_list, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 close_db_connect($link);
 
-var_dump($errors);
 
 include_once 'include/view/route_view.php';

@@ -17,7 +17,6 @@
     </p>
     <p id="search_result"></p>
     <div id="map_box"></div>
-    <form method="post">
       <h2>一覧</h2>
       <?php if(count($post_place_list) > 0){ ?>
         <table>
@@ -27,7 +26,7 @@
                     <th>コメント</th>
                     <th>URL</th>
                     <th>表示</th>
-                    <th></th>
+                    <th>順番</th>
                     <th></th>
                 </tr>
             </thead>
@@ -40,34 +39,38 @@
                         <td>
                             <button
                                 class="display"
-                                data-address="<?php echo h($place['lat'],$place['lng']); ?>"
-                                data-name="<?php echo h($place['place_name']); ?>"
-                            >
+                                data-lat="<?php echo h($place['lat']);?>"
+                                data-lng="<?php echo h($place['lng']);?>"
+                                data-name="<?php echo h($place['place_name']); ?>">
                                 表示
                             </button>
                         </td>
                         <td>
                           <form method="post" action="place_order.php">
-                            <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
-                            <input type="hidden" name="post_places_id" value="<?php echo h($place['post_places_id']); ?>">
-                            <input type="submit" value="変更">
+                            <div>
+                              <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
+                              <input type="hidden" name="post_place_id" value="<?php echo h($place['post_place_id']); ?>">
+                              <input type="hidden" name="mylist_id" value="<?php echo h($place['mylist_id']); ?>">
+                              <input type="submit" value="変更">
+                            </div>
                           </form>
                         </td>
                         <td>
-                          <form method="post" action="places_delete.php">
-                            <input type="hidden" name="post_places_id" value="<?php echo h($place['post_places_id']); ?>">
+                          <form method="post" action="mylist_delete.php">
+                            <input type="hidden" name="post_place_id" value="<?php echo h($place['post_place_id']); ?>">
+                            <input type="hidden" name="mylist_id" value="<?php echo h($place['mylist_id']); ?>">
                             <input type="submit" value="削除">
                           </form>
                         </td>
-                        </tr>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
     <?php } else { ?>
-        <p>登録されたプレイスはありません。</p>
+        <p>登録された場所はありません。</p>
     <?php } ?>
     </form>
-    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
+    
 
     <script>
       function init(){
@@ -77,7 +80,7 @@
           map_box,
           {
             center: new google.maps.LatLng(place_list[0]["lat"],place_list[0]["lng"]),
-            zoom: 15,
+            zoom: 12,
             disableDefaultUI: true,
             zoomControl: true,
             clickableIcons: false,
@@ -145,8 +148,18 @@
         //     infoWindow.open(map, added_marker);
         //   })
         // });
-        
-        
+        var display_buttons = Array.from(document.getElementsByClassName('display'));
+        //各ボタンにイベントを設定
+        display_buttons.forEach(
+          function(display_button){
+            display_button.addEventListener(
+              'click',
+              function(){
+                map.panTo(new google.maps.LatLng(display_button.dataset.lat,display_button.dataset.lng)); // スムーズに移動
+              }
+            );
+          }
+        );
        
         if(place_list.length === 1){
           var marker = new google.maps.Marker({
@@ -196,5 +209,7 @@
         }
       }
     </script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
 </body>
 </html>

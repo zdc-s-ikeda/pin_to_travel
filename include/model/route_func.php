@@ -4,10 +4,6 @@ function h($str) {
     return htmlspecialchars($str, ENT_QUOTES, HTML_CHARACTER_SET);
 }
 
-function is_post(){
-    return $_SERVER['REQUEST_METHOD'] === TRUE;
-}
-
 //DBハンドル取得
 function get_db_connect() {
  
@@ -92,7 +88,7 @@ function select_place_list($mylist_id, $link){
                 lng,
                 url,
                 mylist_name,
-                place_list_table.post_places_id,
+                place_list_table.post_place_id,
                 place_order,
                 mylist_table.mylist_id
             FROM
@@ -100,7 +96,7 @@ function select_place_list($mylist_id, $link){
             JOIN
                 post_places_table
             ON
-                place_list_table.post_places_id = post_places_table.post_places_id
+                place_list_table.post_place_id = post_places_table.post_place_id
             JOIN
                 mylist_table
             ON
@@ -112,11 +108,13 @@ function select_place_list($mylist_id, $link){
     return get_as_array($link, $sql);
 }
 
-function delete_place($post_place_id, $link){
+function delete_place($post_place_id, $mylist_id, $link){
     $sql = "DELETE FROM
-                mylist_table
+                place_list_table
             WHERE
-                post_place_id = {$post_place_id}";
+                post_place_id = '{$post_place_id}'
+            AND
+                mylist_id = '{$mylist_id}'";
     return result_query($link, $sql);
 }
 
@@ -125,13 +123,9 @@ function update_place($post_place_id, $place_order, $link){
                 place_list_table
             SET
                 place_order = '{$place_order}'
-            WEHRE
+            WHERE
                 post_place_id = '{$post_place_id}'";
     return result_query($link, $sql);
-}
-
-function is_post(){
-    return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
 function is_blank($value){
@@ -143,4 +137,17 @@ function get_post($name){
         return trim($_POST[$name]);
     }
     return '';
+}
+
+function redirect_to($url){
+    header('Location: ' . $url);
+    exit;
+}
+
+function get_request_method() {
+   return $_SERVER['REQUEST_METHOD'];
+}
+
+function is_post(){
+    return get_request_method() === 'POST';
 }
