@@ -62,7 +62,7 @@ function dd($var){
 }
 
 //route_table select
-function select_route($mylist_id,$link){
+function select_route($route_id,$link){
     $sql = "SELECT
                 lat,
                 lng,
@@ -70,7 +70,7 @@ function select_route($mylist_id,$link){
             FROM
                 route_table
             WHERE
-                mylist_id = '{$mylist_id}'
+                route_id = '{$route_id}'
             ORDER BY 
                 route_order";
     return get_as_array($link, $sql);
@@ -78,7 +78,7 @@ function select_route($mylist_id,$link){
 }
 
 //place_list_table select
-function select_place_list($mylist_id, $link){
+function select_place_list($route_id, $link){
     $sql = "SELECT
                 place_name,
                 comment,
@@ -87,44 +87,44 @@ function select_place_list($mylist_id, $link){
                 lat,
                 lng,
                 url,
-                mylist_name,
-                place_list_table.post_place_id,
+                route_name,
+                place_list_table.place_id,
                 place_order,
-                mylist_table.mylist_id
+                route_table.route_id
             FROM
                 place_list_table
             JOIN
-                post_places_table
+                post_place_table
             ON
-                place_list_table.post_place_id = post_places_table.post_place_id
+                place_list_table.place_id = post_place_table.place_id
             JOIN
-                mylist_table
+                route_table
             ON
-                place_list_table.mylist_id = mylist_table.mylist_id
+                place_list_table.route_id = route_table.route_id
             WHERE
-                place_list_table.mylist_id = '{$mylist_id}'
+                place_list_table.route_id = '{$route_id}'
             ORDER BY
                 place_order";
     return get_as_array($link, $sql);
 }
 
-function delete_place($post_place_id, $mylist_id, $link){
+function delete_place($place_id, $route_id, $link){
     $sql = "DELETE FROM
                 place_list_table
             WHERE
-                post_place_id = '{$post_place_id}'
+                place_id = '{$place_id}'
             AND
-                mylist_id = '{$mylist_id}'";
+                route_id = '{$route_id}'";
     return result_query($link, $sql);
 }
 
-function update_place($post_place_id, $place_order, $link){
+function update_place($place_id, $place_order, $link){
     $sql = "UPDATE
                 place_list_table
             SET
                 place_order = '{$place_order}'
             WHERE
-                post_place_id = '{$post_place_id}'";
+                place_id = '{$place_id}'";
     return result_query($link, $sql);
 }
 

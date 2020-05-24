@@ -6,7 +6,7 @@ require_once 'include/model/route_func.php';
 
 if(is_post() === true){
 
-    $place_id = get_post('post_place_id');
+    $place_id = get_post('place_id');
     $place_order = get_post('place_order');
 
     if($place_id !== ''){

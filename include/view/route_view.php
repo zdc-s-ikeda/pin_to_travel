@@ -35,7 +35,7 @@
                     <tr>
                         <td><?php echo h($place['place_name']); ?></td>
                         <td><?php echo h($place['comment']); ?></td>
-                        <td><?php echo h($place['url']); ?></td>
+                        <td><a href="<?php echo h($place['url']); ?>"></a></td>
                         <td>
                             <button
                                 class="display"
@@ -49,16 +49,16 @@
                           <form method="post" action="place_order.php">
                             <div>
                               <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
-                              <input type="hidden" name="post_place_id" value="<?php echo h($place['post_place_id']); ?>">
-                              <input type="hidden" name="mylist_id" value="<?php echo h($place['mylist_id']); ?>">
+                              <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
+                              <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
                               <input type="submit" value="変更">
                             </div>
                           </form>
                         </td>
                         <td>
                           <form method="post" action="mylist_delete.php">
-                            <input type="hidden" name="post_place_id" value="<?php echo h($place['post_place_id']); ?>">
-                            <input type="hidden" name="mylist_id" value="<?php echo h($place['mylist_id']); ?>">
+                            <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
+                            <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
                             <input type="submit" value="削除">
                           </form>
                         </td>
@@ -70,6 +70,10 @@
         <p>登録された場所はありません。</p>
     <?php } ?>
     </form>
+    <li><a href="mypage.php">マイページ</a></li>
+    <li><a href="">リスト</a></li>
+    <li><a href="">お気に入り</a></li>
+    <li><a href="">共有</a></li>
     
 
     <script>

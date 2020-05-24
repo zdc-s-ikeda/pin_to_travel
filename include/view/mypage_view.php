@@ -17,7 +17,7 @@
     </p>
     <p id="search_result"></p>
     <div id="map_box"></div>
-    <li><a href="">プレイス</a></li>
+    <li><a href="route.php">マイルート</a></li>
     <li><a href="">リスト</a></li>
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>
