@@ -1,4 +1,20 @@
 <?php
+
+function get_request_method() {
+   return $_SERVER['REQUEST_METHOD'];
+}
+function is_post() {
+    return get_request_method() === 'POST';
+}
+function h($value) {
+     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+ }
+//postされた値を受け取る
+function get_post($key) {
+    if (isset($_POST[$key]) === TRUE) {
+        return trim($_POST[$key]);
+    }
+}
 //db系
  //db接続
 function get_db_connect() {
@@ -65,4 +81,24 @@ function get_post_places($link) {
             post_places_table
         ";
     return get_as_array($link, $sql);
+}
+
+function insert_to_place_list_table($link, $place_id, $place_order, $route_id) {
+    $log = date('Y-m-d h:i:s');
+    $sql ="
+        INSERT INTO
+            place_list_table
+            (route_id, 
+            place_id, 
+            place_order,
+            created_date,
+            updated_date)
+        VALUES(
+            '{$route_id}',
+            '{$place_id}',
+            '{$place_order}',
+            '{$log}',
+            '{$log}')
+        ";
+        return do_query($link, $sql);
 }
