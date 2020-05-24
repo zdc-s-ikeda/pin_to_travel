@@ -56,7 +56,7 @@
                           </form>
                         </td>
                         <td>
-                          <form method="post" action="mylist_delete.php">
+                          <form method="post" action="place_list_delete.php">
                             <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
                             <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
                             <input type="submit" value="削除">
