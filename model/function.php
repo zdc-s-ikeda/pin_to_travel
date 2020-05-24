@@ -118,7 +118,6 @@ function get_list($link) {
             
             "; //今後ユーザーが複数のルートを選択できるようにする。
     $list_items = get_as_array($link, $sql);
-    var_dump($sql);
-    var_dump($list_items);
+
     return $list_items;
 }
