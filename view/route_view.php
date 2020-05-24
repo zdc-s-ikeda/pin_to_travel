@@ -46,7 +46,7 @@
                             </button>
                         </td>
                         <td>
-                          <form method="post" action="place_order.php">
+                          <form method="post" action="../route/place_order.php">
                             <div>
                               <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
                               <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
@@ -56,7 +56,7 @@
                           </form>
                         </td>
                         <td>
-                          <form method="post" action="mylist_delete.php">
+                          <form method="post" action="../route/route_list_delete.php">
                             <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
                             <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
                             <input type="submit" value="削除">
@@ -70,7 +70,7 @@
         <p>登録された場所はありません。</p>
     <?php } ?>
     </form>
-    <li><a href="mypage.php">マイページ</a></li>
+    <li><a href="../mypage/mypage.php">マイページ</a></li>
     <li><a href="">リスト</a></li>
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>

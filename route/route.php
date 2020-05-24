@@ -1,6 +1,6 @@
 <?php
-require_once 'include/conf/const.php';
-require_once 'include/model/route_func.php';
+require_once '../conf/const.php';
+require_once '../model/route_func.php';
 
 $route_id = 1;
 $place_list = [];
@@ -22,4 +22,4 @@ $place_list_json = json_encode($post_place_list, JSON_HEX_TAG | JSON_HEX_AMP | J
 close_db_connect($link);
 
 
-include_once 'include/view/route_view.php';
+include_once '../view/route_view.php';
