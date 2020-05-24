@@ -24,7 +24,14 @@
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>
     </navigation>
-    
+    <div>
+      <?php foreach ($errors as $error) { ?>
+      <p><?php print h($error); ?></p>
+      <?php } ?>
+      <?php foreach ($messages as $message) { ?>
+      <p><?php print h($message); ?></p>
+      <?php } ?>
+    </div>
     <div>
       <?php foreach ($items as $item) { ?>
         <form method="post" action="mypage.php">
@@ -37,6 +44,13 @@
           </li>
         </form>
       <?php } ?>
+    </div>
+    <div>
+      <ol>
+        <?php foreach ($list_items as $list_item) { ?>
+        <li><?php print print h($list_item['place_name']); ?></li>
+        <?php } ?>
+      </ol>
     </div>
 
     
