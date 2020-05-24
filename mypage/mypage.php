@@ -55,7 +55,6 @@ $link = get_db_connect();
 $list_items = get_list($link);
 
 
-
 //db接続解除
 close_db_connect($link);
 

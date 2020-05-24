@@ -35,7 +35,7 @@
                     <tr>
                         <td><?php echo h($place['place_name']); ?></td>
                         <td><?php echo h($place['comment']); ?></td>
-                        <td><a href="<?php echo h($place['url']); ?>"></a></td>
+                        <td><a href="<?php echo h($place['url']); ?>"><?php echo h($place['url']); ?></a></td>
                         <td>
                             <button
                                 class="display"

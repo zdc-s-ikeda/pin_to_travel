@@ -1,6 +1,6 @@
 <?php
 require_once '../conf/const.php';
-require_once '///model/route_func.php';
+require_once '../model/route_func.php';
 
 
 

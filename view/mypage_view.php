@@ -46,11 +46,11 @@
       <?php } ?>
     </div>
     <div>
-      <ol>
+      <ul>
         <?php foreach ($list_items as $list_item) { ?>
-        <li><?php print print h($list_item['place_name']); ?></li>
+        <li><?php print h($list_item['place_name']); ?></li>
         <?php } ?>
-      </ol>
+      </ul>
     </div>
 
     
@@ -75,76 +75,76 @@
         
     
         
-        // ジオコーダーの生成
-        var geocoder = new google.maps.Geocoder();
-        document.getElementById('search')
-        .addEventListener(
-        'click',
-        function(){
-              geocoder.geocode(
-                // 第一引数にジオコーディングのオプションを設定
-                {
-                  address: document.getElementById('address').value
-                },
-                // 第二引数に結果取得時の動作を設定
-                function(results, status){
-                  // 失敗時の処理
-                  if(status !== 'OK'){
-                    alert('ジオコーディングに失敗しました。結果: ' + status);
-                    return;
-                  }
-                  // 成功した場合、resultsの0番目に結果が取得される。
-                  if(!results[0]){
-                    alert('結果が取得できませんでした');
-                    return;
-                  }
-                  // マップの中心を移動
-                  //スクロールする
-                  map.panTo(results[0].geometry.location);
+        // // ジオコーダーの生成
+        // var geocoder = new google.maps.Geocoder();
+        // document.getElementById('search')
+        // .addEventListener(
+        // 'click',
+        // function(){
+        //       geocoder.geocode(
+        //         // 第一引数にジオコーディングのオプションを設定
+        //         {
+        //           address: document.getElementById('address').value
+        //         },
+        //         // 第二引数に結果取得時の動作を設定
+        //         function(results, status){
+        //           // 失敗時の処理
+        //           if(status !== 'OK'){
+        //             alert('ジオコーディングに失敗しました。結果: ' + status);
+        //             return;
+        //           }
+        //           // 成功した場合、resultsの0番目に結果が取得される。
+        //           if(!results[0]){
+        //             alert('結果が取得できませんでした');
+        //             return;
+        //           }
+        //           // マップの中心を移動
+        //           //スクロールする
+        //           map.panTo(results[0].geometry.location);
                   
-                //formatted_address 書式が整えられた住所の情報
-                  document.getElementById('search_result').innerHTML = results[0].formatted_address;
-                }
-              );
-            }
-          );
+        //         //formatted_address 書式が整えられた住所の情報
+        //           document.getElementById('search_result').innerHTML = results[0].formatted_address;
+        //         }
+        //       );
+        //     }
+        //   );
           
           
-          // クリック位置をリバースジオコーディング
-            map.addListener('click', function(e){
-              geocoder.geocode({
-                location: e.latLng
-              }, function(results, status){
-                if(status !== 'OK'){
-                  alert('リバースジオコーディングに失敗しました。結果: ' + status);
-                  return;
-                }
+        //   // クリック位置をリバースジオコーディング
+        //     map.addListener('click', function(e){
+        //       geocoder.geocode({
+        //         location: e.latLng
+        //       }, function(results, status){
+        //         if(status !== 'OK'){
+        //           alert('リバースジオコーディングに失敗しました。結果: ' + status);
+        //           return;
+        //         }
             
-                // console.log(results);
-                if(!results[0]){
-                  alert('結果が取得できませんでした。');
-                  return;
-                }
+        //         // console.log(results);
+        //         if(!results[0]){
+        //           alert('結果が取得できませんでした。');
+        //           return;
+        //         }
             
-                // クリックした位置にマーカーを立てる
-                var added_marker = new google.maps.Marker({
-                  position: e.latLng, // クリックした箇所
-                  map: map,
-                  animation: google.maps.Animation.DROP,
-                  title: results[0].formatted_address
-                });
-                // マーカーに情報ウィンドウを紐付け、
-                // リバースジオコーディングで取得した住所を表示する。
+        //         // クリックした位置にマーカーを立てる
+        //         var added_marker = new google.maps.Marker({
+        //           position: e.latLng, // クリックした箇所
+        //           map: map,
+        //           animation: google.maps.Animation.DROP,
+        //           title: results[0].formatted_address
+        //         });
+        //         // マーカーに情報ウィンドウを紐付け、
+        //         // リバースジオコーディングで取得した住所を表示する。
                
-                var infoWindow = new google.maps.InfoWindow({
-                  content: 'ここに情報を表示'
-                });
+        //         var infoWindow = new google.maps.InfoWindow({
+        //           content: 'ここに情報を表示'
+        //         });
                 
-                infoWindow.open(map, added_marker);
+        //         infoWindow.open(map, added_marker);
                 
-                //document.getElementById('searched_address').value = results[0].formated...
-              })
-            });
+        //         //document.getElementById('searched_address').value = results[0].formated...
+        //       })
+        //     });
 
             var markers = [];
             //for (var i = 0; i < items.length; i++) {

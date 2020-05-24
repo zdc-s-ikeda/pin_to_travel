@@ -78,7 +78,7 @@ function get_post_places($link) {
         SELECT
             *
         FROM
-            post_places_table
+            post_place_table
         ";
     return get_as_array($link, $sql);
 }
