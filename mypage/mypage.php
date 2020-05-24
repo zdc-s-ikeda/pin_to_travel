@@ -1,7 +1,7 @@
 <?php
 
-require_once 'include/model/function.php';
-require_once 'include/conf/const.php';
+require_once '../model/function.php';
+require_once '../conf/const.php';
 
 
 //place_idの情報を表示
@@ -19,4 +19,4 @@ close_db_connect($link);
 
 
 
-include_once 'include/view/mypage_view.php';
+include_once '../view/mypage_view.php';
