@@ -102,3 +102,22 @@ function insert_to_place_list_table($link, $place_id, $place_order, $route_id) {
         ";
         return do_query($link, $sql);
 }
+
+function get_list($link) {
+    $sql = "
+            SELECT
+                place_name
+            FROM
+                place_list_table
+            JOIN
+                post_place_table
+            ON
+                place_list_table.place_id = post_place_table.place_id
+            WHERE
+                route_id = 1
+            
+            "; //今後ユーザーが複数のルートを選択できるようにする。
+    $list_items = get_as_array($link, $sql);
+
+    return $list_items;
+}
