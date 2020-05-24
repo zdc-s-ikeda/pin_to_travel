@@ -1,4 +1,5 @@
 <?php
+
 function get_request_method() {
    return $_SERVER['REQUEST_METHOD'];
 }

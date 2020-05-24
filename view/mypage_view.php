@@ -17,9 +17,9 @@
     </p>
     <p id="search_result"></p>
     <div id="map_box"></div>
-    
+  
     <navigation>
-    <li><a href="">プレイス</a></li>
+    <li><a href="../route/route.php">マイルート</a></li>
     <li><a href="">リスト</a></li>
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>
@@ -43,16 +43,16 @@
 
     <script>
       function init(){
-        var yokohama = {
-          lat: 35.4657901,
-          lng: 139.6201245
-        };
+                      //$itemsをjs形式で呼び出し
+        var items = JSON.parse('<?php echo $items_json; ?>');
+
         var map_box = document.getElementById('map_box');
         var map = new google.maps.Map(
           map_box,
           {
-            center: yokohama,
-            zoom: 15,
+            center: new google.maps.LatLng(items[0]["lat"],items[0]["lng"]),
+            zoom: 12,
+
             disableDefaultUI: true,
             zoomControl: true,
             clickableIcons: false,
@@ -131,9 +131,7 @@
                 //document.getElementById('searched_address').value = results[0].formated...
               })
             });
-            
-              //$itemsをjs形式で呼び出し
-            var items = JSON.parse('<?php echo $items_json; ?>');
+
             var markers = [];
             //for (var i = 0; i < items.length; i++) {
               //var item = items[i];
@@ -151,12 +149,10 @@
               
               markers.push(added_marker);
             }
-            
-         
-          
       }
     </script>
     
     <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
+
 </body>
 </html>
