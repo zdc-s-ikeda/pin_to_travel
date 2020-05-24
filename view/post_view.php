@@ -6,7 +6,7 @@
     </head>
     <body>
         <section>
-            <form action="../control/mypage.php">
+            <form action="../mypage/mypage.php">
                 <label>コメント（営業時間等）：<input type="text" name="comment"></label>
                 <label>写真：<input type="file" name="img"></label>
                 <label>リンク：<input type="text" name="url"></label>
