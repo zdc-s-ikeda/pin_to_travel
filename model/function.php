@@ -110,9 +110,9 @@ function get_list($link) {
             FROM
                 place_list_table
             JOIN
-                post_places_table
+                post_place_table
             ON
-                place_list_table.place_id = post_places_table.place_id
+                place_list_table.place_id = post_place_table.place_id
             WHERE
                 route_id = 1
             
