@@ -1,5 +1,5 @@
 <?php
-
+define('API_KEY', getenv('API_KEY'));
 define('DB_HOST', 'localhost');
 define('DB_USER', 'codecamp34624');
 define('DB_PASSWD', 'codecamp34624');
