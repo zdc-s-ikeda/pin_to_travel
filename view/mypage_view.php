@@ -48,7 +48,7 @@
     <div>
       <ol>
         <?php foreach ($list_items as $list_item) { ?>
-        <li><?php print print h($list_item['place_name']); ?></li>
+        <li><?php print h($list_item['place_name']); ?></li>
         <?php } ?>
       </ol>
     </div>
@@ -156,7 +156,7 @@
                 position: new google.maps.LatLng(item["lat"],item["lng"])
               });
               var added_info_window = new google.maps.InfoWindow({
-                content: item['comment'] + '<br>' + item['img']
+                content: item['place_name'] + '<br>' + item['comment'] + '<br>' + item['url'] + '<br>' + '<img src="../images/' + item['img'] + '"　width=75 height=75>'
               });
               
               added_info_window.open(map, added_marker);
