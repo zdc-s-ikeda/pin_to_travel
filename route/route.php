@@ -13,7 +13,6 @@ $errors = [];
 //     $errors[] = 'route_table取得失敗';
 // }
 $post_place_list = select_place_list($route_id, $link);
-var_dump($post_place_list);
 if(empty($post_place_list) === TRUE){
     $errors[] = 'place_list_table取得失敗';
 }
