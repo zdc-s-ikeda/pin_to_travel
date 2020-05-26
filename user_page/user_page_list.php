@@ -12,13 +12,10 @@ require_once 'functions.php';
 $user_id = 2;
 $link = get_db_connect();
 
-//ユーザーIDでルートIDを持ってくる
-$route_id_array = get_route_id($link, $user_id);
-
-//これまでポストしたデータをルートごとに取得
-foreach ($route_id_array as $route_id) {
-    $places = get_route_place($link, $route_id);
-}
+//これまでポストしたプレイスデータ取得
+$places = get_post_place($link, $user_id);
+//ルート名の取得
+$route_list = get_route_name($link, $user_id);
 
 $places_json = json_encode($places, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 

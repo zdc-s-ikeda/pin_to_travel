@@ -39,8 +39,8 @@
         <p>ユーザー情報</p>
         
     </div>
-
-    <h2>マイルート</h2>
+    <div id="place">
+    <h2>マイプレイス</h2>
         <div id="map">map</div>
         <div id="list">
         <?php foreach ($places as $place) { ?>
@@ -48,5 +48,14 @@
             <img src="<?php print './image/.' . h($place['img']); ?>">
         <?php } ?>
         </div>
+    </div>
+    <div id="route">
+    <h2>ルート</h2>
+        <?php foreach ($route_list as $route) { ?>
+            <ul>
+                <li><a href="route.php?id=<?=$route['route_id']?>"><?php print h($route['route_name']); ?></li>
+            </ul>
+        <?php } ?>
+    </div>
 </body>
 </html>

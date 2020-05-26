@@ -213,10 +213,10 @@ function execute_query($link, $sql) {
     return mysqli_query($link, $sql);
 }
 
-function get_route_id($link, $user_id){
+function get_route_name($link, $user_id){
     $sql = "
             SELECT
-                route_id
+                *
             FROM
                 route_table
             WHERE
@@ -225,28 +225,6 @@ function get_route_id($link, $user_id){
             
     return get_as_array($link, $sql);
 }
-
-// function get_route_place($link, $route_id_array, $route_id) {
-//     foreach ($route_id_array as $route_id) {
-//         $sql = "
-//                  SELECT
-//                     place_name, img, comment, url
-//                 FROM
-//                     route_table
-//                 JOIN
-//                     place_list_table
-//                 ON
-//                     route_table.route_id = place_list_table.route_id
-//                 JOIN
-//                     post_place_table
-//                 ON
-//                     place_list_table.place_id = post_place_table.place_id
-//                 WHERE
-//                     route_table.route_id = '{$route_id}'
-//                 ";
-//         return get_as_array($link, $sql);
-//     }
-// }
 
 function get_route_place($link, $route_id) {
         $sql = "
@@ -266,4 +244,15 @@ function get_route_place($link, $route_id) {
                     route_table.route_id = '{$route_id}'
                 ";
         return get_as_array($link, $sql);
+}
+
+function get_post_place($link, $user_id) {
+    $sql = "
+            SELECT
+                *
+            FROM
+                post_place_table
+            WHERE
+                user_id = {$user_id}";
+    return mysqli_query($link, $sql);
 }
