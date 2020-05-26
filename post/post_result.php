@@ -4,6 +4,7 @@ require_once '../conf/const.php';
 
 $errors = [];
 $success = '';
+$user_id = 1;
 
 if (is_post() === TRUE) {
     var_dump($_POST);
@@ -62,7 +63,7 @@ if (is_post() === TRUE) {
     }
     if(count($errors) === 0){
         $link = get_db_connect();
-        if(insert_post_place($place_name, $user_id, $comment, $filename, $lat, $lng, $url, $link) === FALSE){
+        if(insert_post_place($place_name, $user_id, $comment, $img, $lat, $lng, $url, $link) === FALSE){
             $errors[] = 'insert_post_place失敗';
         }
     }
