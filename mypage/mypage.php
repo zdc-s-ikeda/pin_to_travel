@@ -18,6 +18,14 @@ $items = get_post_places($link);
 //$itemsをjs形式に変換(itemsには、name, comment, imgが一つずつ入っている)
 $items_json = json_encode($items, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
+//リストに新しく格納されたアイテムの表示
+$list_items = get_list($link);
+
+//リスト名の表示
+$route_name = get_route_name($link);
+
+//表示されているリスト内に入ったアイテムの表示(サイドバー)
+$side_items = get_side_items($link);
 
 //db切断
 close_db_connect($link);
@@ -47,15 +55,5 @@ if (is_post() === TRUE) {
     close_db_connect($link);
 }
 
-
-//リストに登録された場所の表示
-//db接続
-$link = get_db_connect();
-
-$list_items = get_list($link);
-
-
-//db接続解除
-close_db_connect($link);
 
 include_once '../view/mypage_view.php';
