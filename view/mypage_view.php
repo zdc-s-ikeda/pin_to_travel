@@ -5,25 +5,38 @@
     <title>マイページ</title>
     <style>
       #map_box {
-        width: 800px;
+        width: 600px;
         height: 600px;
+        text-align: center;
+      }
+      #main {
+        flex: 1;
+      }
+      navigation {
+        width: 200px;
       }
       #sidebar {
-        background-color: blue;
+        background-color: gray;
+        width: 300px;
       }
       .side_img {
         width: 100px;
         height: 100px;
       }
+      body {
+        display: flex;
+      }
+      p {
+        word-wrap: break-word;
+      }
     </style>
 </head>
 <body>
-    <p>
-      <label>住所を検索: <input type="text" id="address"></label>
-      <button id="search">検索</button>
-    </p>
-    <p id="search_result"></p>
-    <div id="map_box"></div>
+    <!--<p>-->
+    <!--  <label>住所を検索: <input type="text" id="address"></label>-->
+    <!--  <button id="search">検索</button>-->
+    <!--</p>-->
+    <!--<p id="search_result"></p>-->
   
     <navigation>
     <li><a href="../route/route.php">マイルート</a></li>
@@ -33,6 +46,8 @@
     </navigation>
     
     <section id="main">
+    <div id="map_box"></div>
+      
     <div id="message">
       <?php foreach ($errors as $error) { ?>
       <p><?php print h($error); ?></p>
@@ -63,21 +78,25 @@
         <?php } ?>
       </ul>
     </div>
+    </section>
     
     <section id="sidebar">
       
-      <p>リスト名：<?php print h($route_name['route_name']); ?></p>
+      <p>リスト名：<?php print h($route_table[0]['route_name']); ?></p>
+      <form>
+      <a href="../use_page.php">投稿者：<?php print h($route_table[0]['user_id']); ?></a>
+      <input type="hidden" name="use_id" value="<?php print h($route_table[0]['user_id']); ?>">
+      </form>
       
       <div class="side_item">
       <?php foreach ($side_items as $side_item) { ?>
       <p><?php print h($side_item['place_name']); ?></p>
       <img src="../images/<?php print h($side_item['img']); ?>" class="side_img">
       <p>コメント：<?php print h($side_item['comment']); ?></p>
-      <p>url：<?php print h($side_item['url']); ?></p>
+      <label>url：<a href="<?php print h($side_item['url']); ?>"><?php print h($side_item['url']); ?></a></label>
       <?php } ?>
       </div>
       
-    </section>
     </section>
 
     

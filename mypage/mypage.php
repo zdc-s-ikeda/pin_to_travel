@@ -21,8 +21,8 @@ $items_json = json_encode($items, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | 
 //リストに新しく格納されたアイテムの表示
 $list_items = get_list($link);
 
-//リスト名の表示
-$route_name = get_route_name($link);
+//リスト名とユーザー名の表示
+$route_table = get_route_table($link);
 
 //表示されているリスト内に入ったアイテムの表示(サイドバー)
 $side_items = get_side_items($link);

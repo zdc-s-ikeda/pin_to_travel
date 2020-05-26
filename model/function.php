@@ -122,16 +122,18 @@ function get_list($link) {
     return $list_items;
 }
 
-function get_route_name($link) {
+function get_route_table($link) {
     $sql = "
             SELECT
-                route_name
+                route_name, user_id
             FROM
                 route_table
             WHERE
                 route_id = 1
             ";
-    return get_as_row($link, $sql);
+    $result =  get_as_array($link, $sql);
+    return $result;
+    
 }
 
 function get_side_items($link) {
