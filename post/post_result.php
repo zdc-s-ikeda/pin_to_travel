@@ -7,7 +7,6 @@ $success = '';
 $user_id = 1;
 
 if (is_post() === TRUE) {
-    var_dump($_POST);
     $place_name = '';
     $comment = '';
     $url = '';
