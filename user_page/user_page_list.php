@@ -1,7 +1,7 @@
 <?php
 
-require_once 'const.php';
-require_once 'functions.php';
+require_once '../conf/const.php';
+require_once '../model/user_page_func.php';
 
 
 //ユーザーID取得
@@ -23,4 +23,4 @@ $places_json = json_encode($places, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS 
 
 close_db_connect($link);
 
-include_once 'user_page_list_view.php';
+include_once '../view/user_page_list_view.php';
