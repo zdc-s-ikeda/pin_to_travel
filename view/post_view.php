@@ -146,7 +146,12 @@
     </p>
     <p id="search_result"></p>
     <div id="map" style="height:560px"></div>
-
+    <navigation>
+        <li><a href="../mypage/mypage.php">ホーム</a></li>
+        <li><a href="../route/route.php">マイルート</a></li>
+        <li><a href="../post/post.php">投稿</a></li>
+        <li><a href="">共有</a></li>
+    </navigation>
     
     
   </body>
