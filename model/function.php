@@ -121,3 +121,35 @@ function get_list($link) {
 
     return $list_items;
 }
+
+function get_route_name($link) {
+    $sql = "
+            SELECT
+                route_name
+            FROM
+                route_table
+            WHERE
+                route_id = 1
+            ";
+    return get_as_row($link, $sql);
+}
+
+function get_side_items($link) {
+    $sql = "
+            SELECT
+                place_name, img, comment, url
+            FROM
+                route_table
+            JOIN
+                place_list_table
+            ON
+                route_table.route_id = place_list_table.route_id
+            JOIN
+                post_place_table
+            ON
+                place_list_table.place_id = post_place_table.place_id
+            WHERE
+                route_table.route_id = 1
+            ";
+    return get_as_array($link, $sql);
+}
