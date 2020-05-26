@@ -8,6 +8,12 @@
         width: 800px;
         height: 600px;
       }
+      #sidebar {
+        background-color: blue;
+        width: 200px;
+        height: 700px;
+        float: right;
+      }
     </style>
 </head>
 <body>
@@ -52,6 +58,20 @@
         <?php } ?>
       </ul>
     </div>
+    
+    <section id="sidebar">
+      
+      <p>リスト名：<?php print h($list_name); ?></p>
+      
+      <div class="side_item">
+      <?php foreach ($side_items as $side_item) { ?>
+      <img src="<?php print h($side_item['img']); ?>">
+      <p>コメント：<?php print h($side_item['comment']); ?></p>
+      <p>url：<?php print h($side_item['url']); ?></p>
+      <?php } ?>
+      </div>
+      
+    </section>
 
     
 
