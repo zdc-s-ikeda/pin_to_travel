@@ -37,7 +37,6 @@ if (is_post() === TRUE) {
     //値を受け取り
     $place_id = get_post('place_id');
     $place_order = get_post('place_order');
-    var_dump($_POST);
     //db接続
     $link = get_db_connect();
     

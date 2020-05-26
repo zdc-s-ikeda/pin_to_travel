@@ -183,7 +183,7 @@
                 position: new google.maps.LatLng(item["lat"],item["lng"])
               });
               var added_info_window = new google.maps.InfoWindow({
-                content: item['place_name'] + '<br>' + item['comment'] + '<br>' + item['url'] + '<br>' + '<img src="../images/' + item['img'] + '"　width=75 height=75>'
+                content: item['comment'] + '<br>' + item['img']
               });
               
               added_info_window.open(map, added_marker);
