@@ -10,9 +10,10 @@
       }
       #sidebar {
         background-color: blue;
-        width: 200px;
-        height: 700px;
-        float: right;
+      }
+      .side_img {
+        width: 100px;
+        height: 100px;
       }
     </style>
 </head>
@@ -30,7 +31,9 @@
     <li><a href="">お気に入り</a></li>
     <li><a href="">共有</a></li>
     </navigation>
-    <div>
+    
+    <section id="main">
+    <div id="message">
       <?php foreach ($errors as $error) { ?>
       <p><?php print h($error); ?></p>
       <?php } ?>
@@ -38,12 +41,13 @@
       <p><?php print h($message); ?></p>
       <?php } ?>
     </div>
-    <div>
+    
+    <div id="add">
       <?php foreach ($items as $item) { ?>
         <form method="post" action="mypage.php">
           <li>
           <label><?php print h($item['place_name']) ?>
-          <input type="text" name="place_order">
+          <label>　順番：<input type="text" name="place_order"></label>
           <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
           <input type="submit" value="リストに追加">
           </label>
@@ -51,7 +55,8 @@
         </form>
       <?php } ?>
     </div>
-    <div>
+    
+    <div id="added">
       <ul>
         <?php foreach ($list_items as $list_item) { ?>
         <li><?php print h($list_item['place_name']); ?></li>
@@ -61,16 +66,18 @@
     
     <section id="sidebar">
       
-      <p>リスト名：<?php print h($list_name); ?></p>
+      <p>リスト名：<?php print h($route_name['route_name']); ?></p>
       
       <div class="side_item">
       <?php foreach ($side_items as $side_item) { ?>
-      <img src="<?php print h($side_item['img']); ?>">
+      <p><?php print h($side_item['place_name']); ?></p>
+      <img src="../images/<?php print h($side_item['img']); ?>" class="side_img">
       <p>コメント：<?php print h($side_item['comment']); ?></p>
       <p>url：<?php print h($side_item['url']); ?></p>
       <?php } ?>
       </div>
       
+    </section>
     </section>
 
     
