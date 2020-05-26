@@ -5,54 +5,62 @@
     <title>マイページ</title>
     <style>
       #map_box {
-        width: 800px;
+        width: 600px;
         height: 600px;
-      }
-      #sidebar {
-        background-color: blue;
+        text-align: center;
       }
       .side_img {
         width: 100px;
         height: 100px;
       }
+      p {
+        word-wrap: break-word;
+      }
+      #header {
+        width: 100%;
+      }
+      #main {
+        display: flex;
+      }
+      #center {
+        flex: 1;
+      }
+      #add {
+        width: 200px;
+      }
+      #sidebar {
+        background-color: gray;
+        width: 300px;
+      }
     </style>
 </head>
 <body>
-    <p>
-      <label>住所を検索: <input type="text" id="address"></label>
-      <button id="search">検索</button>
-    </p>
-    <p id="search_result"></p>
-    <div id="map_box"></div>
+    <!--<p>-->
+    <!--  <label>住所を検索: <input type="text" id="address"></label>-->
+    <!--  <button id="search">検索</button>-->
+    <!--</p>-->
+    <!--<p id="search_result"></p>-->
   
-    <navigation>
-    <li><a href="../route/route.php">マイルート</a></li>
-    <li><a href="../post/post.php">投稿</a></li>
-    <li><a href="">お気に入り</a></li>
-    <li><a href="">共有</a></li>
-    </navigation>
+    <section id="header">
+      <p>pin_to_travel</p>
+      <div>
+      <li><a href="../route/route.php">マイルート</a></li>
+      <li><a href="">リスト</a></li>
+      <li><a href="">お気に入り</a></li>
+      <li><a href="">共有</a></li>
+      </div>
+    </section>
     
-    <section id="main">
+    <div id="main">
+    <section id="center">
+    <div id="map_box"></div>
+      
     <div id="message">
       <?php foreach ($errors as $error) { ?>
       <p><?php print h($error); ?></p>
       <?php } ?>
       <?php foreach ($messages as $message) { ?>
       <p><?php print h($message); ?></p>
-      <?php } ?>
-    </div>
-    
-    <div id="add">
-      <?php foreach ($items as $item) { ?>
-        <form method="post" action="mypage.php">
-          <li>
-          <label><?php print h($item['place_name']) ?>
-          <label>　順番：<input type="text" name="place_order"></label>
-          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
-          <input type="submit" value="リストに追加">
-          </label>
-          </li>
-        </form>
       <?php } ?>
     </div>
     
@@ -63,132 +71,90 @@
         <?php } ?>
       </ul>
     </div>
+    </section>
+
+    <div id="add">
+      <?php foreach ($items as $item) { ?>
+        <form method="post" action="mypage.php">
+          <label><?php print h($item['place_name']) ?><br>
+          <label>　順番：<input type="text" name="place_order"></label><br>
+          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>"><br>
+          <input type="submit" value="リストに追加"><br>
+          </label>
+        </form>
+      <?php } ?>
+    </div>
     
     <section id="sidebar">
       
-      <p>リスト名：<?php print h($route_name['route_name']); ?></p>
+      <p>リスト名：<?php print h($route_table[0]['route_name']); ?></p>
+      <form>
+      <a href="../user_page.php">投稿者：<?php print h($route_table[0]['user_id']); ?></a>
+      <input type="hidden" name="use_id" value="<?php print h($route_table[0]['user_id']); ?>">
+      </form>
       
       <div class="side_item">
       <?php foreach ($side_items as $side_item) { ?>
       <p><?php print h($side_item['place_name']); ?></p>
       <img src="../images/<?php print h($side_item['img']); ?>" class="side_img">
       <p>コメント：<?php print h($side_item['comment']); ?></p>
-      <p>url：<?php print h($side_item['url']); ?></p>
+      <label>url：<a href="<?php print h($side_item['url']); ?>"><?php print h($side_item['url']); ?></a></label>
       <?php } ?>
       </div>
       
     </section>
-    </section>
+    </div>
 
     
 
     <script>
       function init(){
-                      //$itemsをjs形式で呼び出し
+        //$itemsをjs形式で呼び出し
         var items = JSON.parse('<?php echo $items_json; ?>');
-
+        
+        //map_box要素を取得
         var map_box = document.getElementById('map_box');
+        //mapを表示
         var map = new google.maps.Map(
           map_box,
           {
             center: new google.maps.LatLng(items[0]["lat"],items[0]["lng"]),
             zoom: 12,
-
             disableDefaultUI: true,
             zoomControl: true,
             clickableIcons: false,
           }
         )
         
-    
+        //マーカーを立てる
+        var markers = [];
+        for (var item of items) {
+              
+          //マーカーを立てる
+          var added_marker = new google.maps.Marker({
+            map: map,
+            position: new google.maps.LatLng(item["lat"],item["lng"])
+          });
+          
+          //インフォメーションウィンドウの表示
+          var added_info_window = new google.maps.InfoWindow({
+            content: item['place_name'] + '<br>'
+          });
         
-        // // ジオコーダーの生成
-        // var geocoder = new google.maps.Geocoder();
-        // document.getElementById('search')
-        // .addEventListener(
-        // 'click',
-        // function(){
-        //       geocoder.geocode(
-        //         // 第一引数にジオコーディングのオプションを設定
-        //         {
-        //           address: document.getElementById('address').value
-        //         },
-        //         // 第二引数に結果取得時の動作を設定
-        //         function(results, status){
-        //           // 失敗時の処理
-        //           if(status !== 'OK'){
-        //             alert('ジオコーディングに失敗しました。結果: ' + status);
-        //             return;
-        //           }
-        //           // 成功した場合、resultsの0番目に結果が取得される。
-        //           if(!results[0]){
-        //             alert('結果が取得できませんでした');
-        //             return;
-        //           }
-        //           // マップの中心を移動
-        //           //スクロールする
-        //           map.panTo(results[0].geometry.location);
-                  
-        //         //formatted_address 書式が整えられた住所の情報
-        //           document.getElementById('search_result').innerHTML = results[0].formatted_address;
-        //         }
-        //       );
-        //     }
-        //   );
-          
-          
-        //   // クリック位置をリバースジオコーディング
-        //     map.addListener('click', function(e){
-        //       geocoder.geocode({
-        //         location: e.latLng
-        //       }, function(results, status){
-        //         if(status !== 'OK'){
-        //           alert('リバースジオコーディングに失敗しました。結果: ' + status);
-        //           return;
-        //         }
-            
-        //         // console.log(results);
-        //         if(!results[0]){
-        //           alert('結果が取得できませんでした。');
-        //           return;
-        //         }
-            
-        //         // クリックした位置にマーカーを立てる
-        //         var added_marker = new google.maps.Marker({
-        //           position: e.latLng, // クリックした箇所
-        //           map: map,
-        //           animation: google.maps.Animation.DROP,
-        //           title: results[0].formatted_address
-        //         });
-        //         // マーカーに情報ウィンドウを紐付け、
-        //         // リバースジオコーディングで取得した住所を表示する。
-               
-        //         var infoWindow = new google.maps.InfoWindow({
-        //           content: 'ここに情報を表示'
-        //         });
-                
-        //         infoWindow.open(map, added_marker);
-                
-        //         //document.getElementById('searched_address').value = results[0].formated...
-        //       })
-        //     });
-
-            var markers = [];
-            //for (var i = 0; i < items.length; i++) {
-              //var item = items[i];
-            for (var item of items) {
-              
-              var added_marker = new google.maps.Marker({
-                map: map,
-                position: new google.maps.LatLng(item["lat"],item["lng"])
-              });
-              var added_info_window = new google.maps.InfoWindow({
-                content: item['comment'] + '<br>' + item['img']
-              });
-              
-              added_info_window.open(map, added_marker);
-              
-              markers.push(added_marker);
+        var btn = document.createElement("button");
+        btn.innerText = item['place_name'];
+        google.maps.event.addDomListener(btn,"click", function(){
+          added_info_window.setContent("aiueo")
+        });
+        
+        //ボタンをcontentにセット
+        added_info_window.setContent(btn);
+        
+        //インフォウィンドウを開く
+        added_info_window.open(map, added_marker);
+        
+        //配列にpushして代入
+        markers.push(added_marker);
             }
       }
     </script>
