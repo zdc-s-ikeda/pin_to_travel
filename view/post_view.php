@@ -28,8 +28,10 @@
       var latlng = new google.maps.LatLng(35.681187, 139.766947);
       var opts = {
         zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: latlng
+        center: latlng,
+        disableDefaultUI: true,
+        zoomControl: true,
+        clickableIcons: false,
       };
 
       // getElementById("map")の"map"は、body内の<div id="map">より
