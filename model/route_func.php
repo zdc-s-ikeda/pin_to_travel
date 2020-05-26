@@ -151,3 +151,7 @@ function get_request_method() {
 function is_post(){
     return get_request_method() === 'POST';
 }
+
+function set_time(){
+    return date('Y-m-d H:i:s');
+}
