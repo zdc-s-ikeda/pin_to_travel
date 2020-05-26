@@ -12,6 +12,8 @@ require_once 'functions.php';
 $user_id = 2;
 $link = get_db_connect();
 
+//ユーザー情報取得
+$user_info = get_user_name($link, $user_id);
 //これまでポストしたプレイスデータ取得
 $places = get_post_place($link, $user_id);
 //ルート名の取得

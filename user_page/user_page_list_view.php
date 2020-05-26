@@ -37,7 +37,7 @@
     <h1>Pinto Travel</h1>
     <div id="user_info">
         <p>ユーザー情報</p>
-        
+        <p><?php print h($user_info['user_name']); ?></p>
     </div>
     <div id="place">
     <h2>マイプレイス</h2>

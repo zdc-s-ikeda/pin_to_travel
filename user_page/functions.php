@@ -228,7 +228,7 @@ function get_route_name($link, $user_id){
 
 function get_route_place($link, $route_id) {
         $sql = "
-                 SELECT
+                SELECT
                     place_name, img, comment, url
                 FROM
                     route_table
@@ -254,5 +254,16 @@ function get_post_place($link, $user_id) {
                 post_place_table
             WHERE
                 user_id = {$user_id}";
-    return mysqli_query($link, $sql);
+    return get_as_array($link, $sql);
+}
+
+function get_user_name($link, $user_id) {
+    $sql = "
+            SELECT
+                user_name
+            FROM
+                users_table
+            WHERE
+                user_id = {$user_id}";
+    return get_as_row($link, $sql);
 }
