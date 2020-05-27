@@ -73,11 +73,6 @@
     </style>
 </head>
 <body>
-    <!--<p>-->
-    <!--  <label>住所を検索: <input type="text" id="address"></label>-->
-    <!--  <button id="search">検索</button>-->
-    <!--</p>-->
-    <!--<p id="search_result"></p>-->
     <section id="header">
     <p>pin_to_travel</p>
       <div id="header_li">
