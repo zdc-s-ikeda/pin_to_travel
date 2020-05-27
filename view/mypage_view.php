@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <title>マイページ</title>
     <style>
+      
+      body {
+         color: #6b6b6b;
+         padding: 40px;
+      }
       #map_box {
-        width: 600px;
-        height: 600px;
+        width: 500px;
+        height: 500px;
         text-align: center;
       }
       .side_img {
@@ -19,18 +24,51 @@
       #header {
         width: 100%;
       }
+      #header_li li {
+        display: inline;
+      }
       #main {
         display: flex;
+      }
+      .icon {
+        width: 100px;
       }
       #center {
         flex: 1;
       }
       #add {
-        width: 200px;
+        width: 300px;
+      }
+      #place_order {
+        width: 30px;
+      }
+      #place_name {
+        font-weight: bold;
+      }
+      #list_add_button {
+        background-color: #ffffff;
+        margin-bottom: 20px;
+        margin-left: 5px;
+        border-radius: 30px;
+      }
+      #list_add_button:hover {
+      background-color: #0fabbc;
+      margin-bottom: 20px;
+      margin-left: 5px;
+      border-radius: 30px;
       }
       #sidebar {
-        background-color: gray;
-        width: 300px;
+        color: #ffffff;
+        background-color: #0fabbc;
+        width: 350px;
+        height: 1000px;
+      }
+      #sidebar_list_name {
+        font-size: 25px;
+        font-weight: bold;
+      }
+      #place_name {
+        font-weight: bold;
       }
     </style>
 </head>
@@ -40,14 +78,12 @@
     <!--  <button id="search">検索</button>-->
     <!--</p>-->
     <!--<p id="search_result"></p>-->
-  
     <section id="header">
-      <p>pin_to_travel</p>
-      <div>
-      <li><a href="../route/route.php">マイルート</a></li>
-      <li><a href="">リスト</a></li>
-      <li><a href="">お気に入り</a></li>
-      <li><a href="">共有</a></li>
+    <p>pin_to_travel</p>
+      <div id="header_li">
+      <li><a href="../mypage/mypage.php"><img class="icon" src="../view/home.png" alt="ホーム"></a></li>
+      <li><a href="../route/route.php"><img class="icon" src="../view/myroute.png" alt="マイルート"></a></li>
+      <li><a href="http://54.145.251.53:8000/pin_to_travel/post/post.php"><img class="icon" src="../view/post.png" alt="投稿"></a></li>
       </div>
     </section>
     
@@ -74,12 +110,13 @@
     </section>
 
     <div id="add">
+      <label id="add_top_comment">行きたい場所をリストに追加</laber><br>
       <?php foreach ($items as $item) { ?>
         <form method="post" action="mypage.php">
-          <label><?php print h($item['place_name']) ?><br>
-          <label>　順番：<input type="text" name="place_order"></label><br>
-          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>"><br>
-          <input type="submit" value="リストに追加"><br>
+          <label id="place_name"><?php print h($item['place_name']) ?></label><br>
+          <label>　順番：<input id="place_order" type="text" name="place_order"></label>
+          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
+          <input id="list_add_button" type="submit" value="リストに追加"><br>
           </label>
         </form>
       <?php } ?>
@@ -87,20 +124,33 @@
     
     <section id="sidebar">
       
-      <p>リスト名：<?php print h($route_table[0]['route_name']); ?></p>
+      <p id="sidebar_list_name">リスト名：<?php print h($route_table[0]['route_name']); ?></p>
       <form>
       <a href="../user_page.php">投稿者：<?php print h($route_table[0]['user_id']); ?></a>
       <input type="hidden" name="use_id" value="<?php print h($route_table[0]['user_id']); ?>">
       </form>
       
-      <div class="side_item">
-      <?php foreach ($side_items as $side_item) { ?>
-      <p><?php print h($side_item['place_name']); ?></p>
-      <img src="../images/<?php print h($side_item['img']); ?>" class="side_img">
-      <p>コメント：<?php print h($side_item['comment']); ?></p>
-      <label>url：<a href="<?php print h($side_item['url']); ?>"><?php print h($side_item['url']); ?></a></label>
-      <?php } ?>
-      </div>
+      <!--<div class="side_item">-->
+      <!--<?php foreach ($side_items as $side_item) { ?>-->
+      <!--<p></p><?php print h($side_item['place_name']); ?>-->
+      <!--<label>URL：<a href="<?php print h($side_item['url']); ?>"><?php print h($side_item['url']); ?></a></label></p>-->
+      <!--<img src="../images/<?php print h($side_item['img']); ?>" class="side_img">-->
+      <!--<p>コメント：<?php print h($side_item['comment']); ?></p>-->
+      <!--<?php } ?>-->
+      <!--</div>-->
+      
+      <table class="side_item">
+        <?php foreach ($side_items as $side_item) { ?>
+        <tr>
+          <td id="place_name"><?php print h($side_item['place_name']); ?></td>
+          <td>URL：<a href="<?php print h($side_item['url']); ?>"><?php print h($side_item['url']); ?></a></label></td>
+        </tr>
+        <tr>
+          <td><img src="../images/<?php print h($side_item['img']); ?>" class="side_img"></td>
+          <td>コメント：<?php print h($side_item['comment']); ?></td>
+        </tr>
+        <?php } ?>
+      </table>
       
     </section>
     </div>
