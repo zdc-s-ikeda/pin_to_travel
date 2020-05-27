@@ -2,11 +2,11 @@
 require_once '../conf/const.php';
 require_once '../model/sign_up_func.php';
 
-session_start();
-if(isset($_SESSION['user_id']) === true){
-    redirect_to('../top/top.php');
-}
-$user_id = $_SESSION['user_id'];
+// session_start();
+// if(isset($_SESSION['user_id']) === true){
+//     redirect_to('../mypage/mypage.php');
+// }
+// $user_id = $_SESSION['user_id'];
 
 
 $errors = [];

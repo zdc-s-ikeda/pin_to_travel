@@ -66,7 +66,7 @@ function get_as_array($link, $sql){
 
 
 //users_table追加
-function insert_user($user_name, $password, $mail, $gender, $birthdate, $log, $link){
+function insert_user($user_name, $password, $mail, $gender, $birthdate, $link){
     $log = set_time();
     $sql = "INSERT INTO 
                 users_table(
@@ -185,4 +185,9 @@ function display_success($success){
 function dd($var){
   var_dump($var);
   exit();
+}
+
+function redirect_to($url){
+    header('Location: ' . $url);
+    exit;
 }
