@@ -4,20 +4,67 @@
     <meta charset="UTF-8">
     <title>マイルート</title>
     <style>
+      body {
+        color: #6b6b6b;
+        padding: 20px;
+      }
       #map_box {
-        width: 800px;
-        height: 600px;
+        width: 500px;
+        height: 500px;
+      }
+      #map_bottom li {
+        display: inline;
+      }
+      .icon {
+        width: 70px;
+        height: 70px;
+      }
+      #place_order {
+        width: 30px;
+      }
+      table {
+      border-collapse: collapse;
+      text-align: center;
+      }
+      table th, table td {
+      border: solid 1px #0fabbc;
+      padding: 5px;
+      }
+      .post_place_list_button {
+        background-color: #ffffff;
+        border-radius: 30px;
+      }
+      .display {
+        background-color: #ffffff;
+        border-radius: 30px;
+      }
+      #sidebar {
+        color: #ffffff;
+        background-color: #0fabbc;
+        width: 200px;
+        height: 650px;
+        float: right;
+      }
+      #sidebar_list {
+        font-weight: bold;
+        text-align: center;
       }
     </style>
 </head>
 <body>
-    <p>
-      <label>住所を検索: <input type="text" id="address"></label>
-      <button id="search">検索</button>
-    </p>
-    <p id="search_result"></p>
-    <div id="map_box"></div>
-      <h2>一覧</h2>
+    <p>pin_to_travel</p>
+    <div id="map_bottom">
+    <li><a href=""><img class="icon" src="../view/home.png" alt="ホーム"></a></li>
+    <li><a href="../mypage/mypage.php"><img class="icon" src="../view/mypage.png" alt="ホーム"></a></li>
+    <li><a href="../route/route.php"><img class="icon" src="../view/myroute.png" alt="マイルート"></a></li>
+    <li><a href="http://54.145.251.53:8000/pin_to_travel/post/post.php"><img class="icon" src="../view/post.png" alt="投稿"></a></li>
+    </div>
+    
+    <section id="sidebar">
+    <p id="sidebar_list">リスト一覧</p>
+    </section>
+    
+    <h2>一覧</h2>
       <?php if(count($post_place_list) > 0){ ?>
         <table>
             <thead>
@@ -48,10 +95,10 @@
                         <td>
                           <form method="post" action="../route/place_order.php">
                             <div>
-                              <input type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
+                              <input id="place_order" type="number" name="place_order" value="<?php echo h($place['place_order']); ?>">
                               <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
                               <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
-                              <input type="submit" value="変更">
+                              <input class="post_place_list_button" type="submit" value="変更">
                             </div>
                           </form>
                         </td>
@@ -59,7 +106,7 @@
                           <form method="post" action="../route/place_list_delete.php">
                             <input type="hidden" name="place_id" value="<?php echo h($place['place_id']); ?>">
                             <input type="hidden" name="route_id" value="<?php echo h($place['route_id']); ?>">
-                            <input type="submit" value="削除">
+                            <input class="post_place_list_button" type="submit" value="削除">
                           </form>
                         </td>
                     </tr>
@@ -70,12 +117,10 @@
         <p>登録された場所はありません。</p>
     <?php } ?>
     </form>
-    <li><a href="../mypage/mypage.php">マイページ</a></li>
-    <li><a href="">リスト</a></li>
-    <li><a href="">お気に入り</a></li>
-    <li><a href="">共有</a></li>
     
-
+    <p id="search_result"></p>
+    <div id="map_box"></div>
+    
     <script>
       function init(){
         var place_list = JSON.parse('<?php echo $place_list_json; ?>');
