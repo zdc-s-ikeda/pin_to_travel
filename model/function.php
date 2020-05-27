@@ -103,7 +103,7 @@ function insert_to_place_list_table($link, $place_id, $place_order, $route_id) {
         return do_query($link, $sql);
 }
 
-function get_list($link) {
+function get_list($route_id, $link) {
     $sql = "
             SELECT
                 place_name
@@ -114,7 +114,7 @@ function get_list($link) {
             ON
                 place_list_table.place_id = post_place_table.place_id
             WHERE
-                route_id = 1
+                route_id = '{$route_id}'
             
             "; //今後ユーザーが複数のルートを選択できるようにする。
     $list_items = get_as_array($link, $sql);
@@ -122,21 +122,21 @@ function get_list($link) {
     return $list_items;
 }
 
-function get_route_table($link) {
+function get_route_table($route_id, $link) {
     $sql = "
             SELECT
                 route_name, user_id
             FROM
                 route_table
             WHERE
-                route_id = 1
+                route_id = '{$route_id}'
             ";
     $result =  get_as_array($link, $sql);
     return $result;
     
 }
 
-function get_side_items($link) {
+function get_side_items($route_id, $link) {
     $sql = "
             SELECT
                 place_name, img, comment, url
@@ -151,7 +151,7 @@ function get_side_items($link) {
             ON
                 place_list_table.place_id = post_place_table.place_id
             WHERE
-                route_table.route_id = 1
+                route_table.route_id = '{$route_id}'
             ";
     return get_as_array($link, $sql);
 }

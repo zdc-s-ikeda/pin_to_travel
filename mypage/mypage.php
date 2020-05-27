@@ -6,13 +6,13 @@ require_once '../conf/const.php';
 //変数の定義
 session_start();
 if(isset($_SESSION['user_id']) === false){
-    redirect_to('login.php');
+    redirect_to('../login/login.php');
 }
 $user_id = $_SESSION['user_id'];
 
 $errors = [];
 $messages = [];
-
+$route_id = 1;
 
 //post_places_tableの情報を表示
 //db接続
@@ -24,13 +24,13 @@ $items = get_post_places($link);
 $items_json = json_encode($items, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 //リストに新しく格納されたアイテムの表示
-$list_items = get_list($link);
+$list_items = get_list($route_id, $link);
 
 //リスト名とユーザー名の表示
-$route_table = get_route_table($link);
+$route_table = get_route_table($route_id, $link);
 
 //表示されているリスト内に入ったアイテムの表示(サイドバー)
-$side_items = get_side_items($link);
+$side_items = get_side_items($route_id, $link);
 
 //db切断
 close_db_connect($link);
