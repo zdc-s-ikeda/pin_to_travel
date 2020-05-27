@@ -13,6 +13,18 @@
         background-color: #CCFFFF;
         width: 800px;
       }
+      header {
+        background-color: #E4F9FF;
+      }
+      li {
+        padding: 0px;
+        list-style: none;
+        display: inline;
+      }
+      img {
+        width: 7%;
+        height: 7%;
+      }
     </style>
 
     <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
@@ -127,6 +139,14 @@
   </head>
 
   <body onload="init()">
+    <header>
+      <ul class="list">
+        <li><a href="../mypage/mypage.php"><img class="icon" src="../view/home.png" alt="ホーム"></a></li>
+        <li><a href="../mypage/mypage.php"><img class="icon" src="../view/mypage.png" alt="マイページ"></a></li>
+        <li><a href="../route/route.php"><img class="icon" src="../view/myroute.png" alt="マイルート"></a></li>
+        <li><a href="http://54.145.251.53:8000/pin_to_travel/post/post.php"><img class="icon" src="../view/post.png" alt="投稿"></a></li>
+      </ul>
+    </header>
     <div id="post">
       <form action="../post/post_result.php" method="post" enctype="multipart/form-data">
           <p><input type="text" name="place_name" placeholder="地名"><br>
@@ -148,14 +168,6 @@
     </p>
     <p id="search_result"></p>
     <div id="map" style="height:560px"></div>
-    <navigation>
-        <li><a href="../mypage/mypage.php">ホーム</a></li>
-        <li><a href="../route/route.php">マイルート</a></li>
-        <li><a href="../post/post.php">投稿</a></li>
-        <li><a href="">共有</a></li>
-    </navigation>
-    
-    
   </body>
 
 </html>
