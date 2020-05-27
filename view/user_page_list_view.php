@@ -48,17 +48,21 @@
         <div id="list">
             <?php foreach ($places as $place) { ?>
                 <p><?php print h($place['place_name']); ?></p>
-                <img src="<?php print './image/.' . h($place['img']); ?>">
+                <img src="<?php print '../image/' . h($place['img']); ?>">
             <?php } ?>
         </div>
     </div>
     <div class="route">
     <h2>ルート</h2>
-        <?php foreach ($route_list as $route) { ?>
-            <ul>
-                <li><a href="route.php?id=<?=$route['route_id']?>"><?php print h($route['route_name']); ?></li>
-            </ul>
-        <?php } ?>
+        <form method="post" action="../route/route.php">
+            <select name="route_id">
+            <?php foreach ($route_list as $route) { ?>
+                <option value="<?php print h($route['route_id']); ?>"><?php print h($route['route_name']); ?></option>
+            <?php } ?>
+            </select>
+            <input type="submit" value="search">
+            
+        </form>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
     <script>
