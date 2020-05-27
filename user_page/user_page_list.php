@@ -10,8 +10,8 @@ require_once '../model/user_page_func.php';
 //     $user_id = $_SESSION['user_id'];
 // }
 $user_id = 2;
-$link = get_db_connect();
 
+$link = get_db_connect();
 //ユーザー情報取得
 $user_info = get_user_name($link, $user_id);
 //これまでポストしたプレイスデータ取得
