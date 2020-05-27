@@ -1,23 +1,67 @@
-<?php
-require_once '../conf/const.php';
-require_once '../model/function_user_page.php';
-
-?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ユーザーページ</title>
-    <style>
-      #map_box {
-        width: 500px;
-        height: 300px;
-      }
+    <style type="text/css">
+
+        h1 {
+            width: 800px;
+            border-bottom: solid;
+        }
+        h2 {
+            font-size: 20px;
+        }
+
+        .header {
+            display: flex;
+            vertical-align: middle;
+        }
+        .place {
+            display: flex;
+        }
+        #list {
+            width: 800px;
+            height: 600px;
+            border: solid 1px;
+        }
+        #map_box {
+            width: 800px;
+            height: 600px;
+        }
+        img {
+            width: 200px;
+        }
+
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1 class="header">Pinto Travel</h1>
+        <p class="header">ユーザー名：<?php print h($user_info['user_name']); ?></p>
+    </div>
     <div id="map_box"></div>
+    <div id="list">
+            <?php foreach ($places as $place) { ?>
+                <p><?php print h($place['place_name']); ?></p>
+                <img src="<?php print '../image/' . h($place['img']); ?>">
+            <?php } ?>
+        </div>
+    </div>
+    <div class="route">
+    <h2>ルート</h2>
+        <form method="post" action="../route/route.php">
+            <select name="route_id">
+            <?php foreach ($route_list as $route) { ?>
+                <option value="<?php print h($route['route_id']); ?>"><?php print h($route['route_name']); ?></option>
+            <?php } ?>
+            </select>
+            <input type="submit" value="search">
 
+        </form>
+    </div>
     <!-- 上で設定した（入力した）API_KEYをここで出力し、init（イニシャライズ：何かの立ち上げに使われる）関数を実行 -->
     <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<?php echo API_KEY; ?>&callback=init" async defer></script>
 
