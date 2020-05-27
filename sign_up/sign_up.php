@@ -1,6 +1,13 @@
 <?php
-require_once 'conf/sign_up_const.php';
-require_once 'model/sign_up_func.php';
+require_once '../conf/const.php';
+require_once '../model/sign_up_func.php';
+
+session_start();
+if(isset($_SESSION['user_id']) === true){
+    redirect_to('../top/top.php');
+}
+$user_id = $_SESSION['user_id'];
+
 
 $errors = [];
 $success = '';
@@ -31,12 +38,12 @@ if($request_method === 'POST'){
         $errors[] = 'パスワードは30字以下の半角英数字で入力してください';
     }
     
-    $mail = get_post_data('mail');
-    if(is_blank($mail) === true){
-        $errors[] = 'メールアドレスを入力してください';
-    }else if(is_valid_mail($mail) !== true){
-        $errors[] = '不正なメールアドレスです';
-    }
+    // $mail = get_post_data('mail');
+    // if(is_blank($mail) === true){
+    //     $errors[] = 'メールアドレスを入力してください';
+    // }else if(is_valid_mail($mail) !== true){
+    //     $errors[] = '不正なメールアドレスです';
+    // }
     
     $gender = get_post_data('gender');
     if(is_blank($gender) === true){
@@ -45,18 +52,18 @@ if($request_method === 'POST'){
         $errors[] = '性別は男性、女性、その他のいずれかを選択してください';
     }
     
-    $birthdate = get_post_data('birthdate');
-    if(is_blank($birthdate) === true){
-        $errors[] = '誕生日を入力してください';
-    }
-    var_dump($_POST);
-    var_dump($log);
+    // $birthdate = get_post_data('birthdate');
+    // if(is_blank($birthdate) === true){
+    //     $errors[] = '誕生日を入力してください';
+    // }
+    // var_dump($_POST);
+    // var_dump($log);
     $link = get_db_connect();
     if(count($errors) === 0){
         //同名アカウント存在確認
         if(check_name($user_name, $link) === []){
             //user_table追加
-            if(insert_user($user_name, $password, $mail, $gender, $birthdate, $log, $link) === FALSE){
+            if(insert_user($user_name, $password, $mail, $gender, $birthdate, $link) === FALSE){
                 $errors[] = 'users_table追加失敗';
             }else{
                 $success = '新規登録が完了しました。ログインボタンを押しログインをお願いします。';
@@ -68,4 +75,4 @@ if($request_method === 'POST'){
     close_db_connect($link);
 }
 
-include_once 'view/sign_up_view.php';
+include_once '../view/sign_up_view.php';
