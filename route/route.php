@@ -2,7 +2,7 @@
 require_once '../conf/const.php';
 require_once '../model/route_func.php';
 
-$route_id = 1;
+
 $place_list = [];
 $post_place_list = [];
 $link = get_db_connect();
@@ -12,6 +12,9 @@ $errors = [];
 // if(empty($place_list) === TRUE){
 //     $errors[] = 'route_table取得失敗';
 // }
+if (is_post() === TRUE) {
+    $route_id = get_post('route_id');
+}
 $post_place_list = select_place_list($route_id, $link);
 if(empty($post_place_list) === TRUE){
     $errors[] = 'place_list_table取得失敗';
