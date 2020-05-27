@@ -15,6 +15,9 @@ $post_place_list = [];
 $link = get_db_connect();
 $errors = [];
 
+if (is_post() === TRUE) {
+    $route_id = get_post('route_id');
+}
 // $place_list = select_route($route_id, $link);
 // if(empty($place_list) === TRUE){
 //     $errors[] = 'route_table取得失敗';

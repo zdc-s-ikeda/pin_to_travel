@@ -83,7 +83,7 @@
       <div id="header_li">
       <li><a href="../mypage/mypage.php"><img class="icon" src="../view/home.png" alt="ホーム"></a></li>
       <li><a href="../route/route.php"><img class="icon" src="../view/myroute.png" alt="マイルート"></a></li>
-      <li><a href="http://54.145.251.53:8000/pin_to_travel/post/post.php"><img class="icon" src="../view/post.png" alt="投稿"></a></li>
+      <li><a href="../post/post.php"><img class="icon" src="../view/post.png" alt="投稿"></a></li>
       </div>
     </section>
     
