@@ -213,7 +213,7 @@ function execute_query($link, $sql) {
     return mysqli_query($link, $sql);
 }
 
-function get_route_name($link, $user_id){
+function get_route_info($link, $user_id){
     $sql = "
             SELECT
                 *
@@ -257,10 +257,10 @@ function get_post_place($link, $user_id) {
     return get_as_array($link, $sql);
 }
 
-function get_user_name($link, $user_id) {
+function get_user_info($link, $user_id) {
     $sql = "
             SELECT
-                user_name
+                *
             FROM
                 users_table
             WHERE
