@@ -14,7 +14,7 @@
   </form>
   <div>
     <!--新規登録のファイルへ -->
-    <h2><a href=".php">初めての方はこちら</a></h2>
+    <h2><a href="../sign_up/sign_up.php">初めての方はこちら</a></h2>
   </div>
 </body>
 </html>

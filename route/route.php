@@ -2,6 +2,13 @@
 require_once '../conf/const.php';
 require_once '../model/route_func.php';
 
+session_start();
+if(isset($_SESSION['user_id']) === false){
+    redirect_to('login.php');
+}
+$user_id = $_SESSION['user_id'];
+
+
 $route_id = 1;
 $place_list = [];
 $post_place_list = [];

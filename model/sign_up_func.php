@@ -67,6 +67,7 @@ function get_as_array($link, $sql){
 
 //users_table追加
 function insert_user($user_name, $password, $mail, $gender, $birthdate, $log, $link){
+    $log = set_time();
     $sql = "INSERT INTO 
                 users_table(
                     user_name,
@@ -84,7 +85,6 @@ function insert_user($user_name, $password, $mail, $gender, $birthdate, $log, $l
                 '{$birthdate}',
                 '{$log}',
                 '{$log}')";
-    var_dump($sql);
     return result_query($link, $sql);
 }
 

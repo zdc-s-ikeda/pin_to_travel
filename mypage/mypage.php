@@ -4,7 +4,12 @@ require_once '../model/function.php';
 require_once '../conf/const.php';
 
 //変数の定義
-$route_id = 1;
+session_start();
+if(isset($_SESSION['user_id']) === false){
+    redirect_to('login.php');
+}
+$user_id = $_SESSION['user_id'];
+
 $errors = [];
 $messages = [];
 

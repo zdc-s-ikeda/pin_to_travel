@@ -2,9 +2,15 @@
 require_once '../model/post_func.php';
 require_once '../conf/const.php';
 
+
+session_start();
+if(isset($_SESSION['user_id']) === false){
+    redirect_to('login.php');
+}
+$user_id = $_SESSION['user_id'];
+
 $errors = [];
 $success = '';
-$user_id = 1;
 
 if (is_post() === TRUE) {
     $place_name = '';
