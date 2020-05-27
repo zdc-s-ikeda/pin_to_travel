@@ -78,7 +78,7 @@
         <form method="post" action="mypage.php">
           <label><?php print h($item['place_name']) ?><br>
           <label>　順番：<input type="text" name="place_order"></label><br>
-          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>"><br>
+          <input type="hidden" name="place_id" value="<?php print h($item['place_id']); ?>">
           <input type="submit" value="リストに追加"><br>
           </label>
         </form>
