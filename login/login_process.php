@@ -37,7 +37,7 @@ if(isset($user['user_id']) === true){
     // クッキー内のuse_idと一致したら？
     $_SESSION['user_id'] = $user['user_id'];
     // マイページに
-    redirect_to('.php');
+    redirect_to('../mypage/mypage.php');
 }
 
 $_SESSION['login_error'] = 'ログインに失敗しました';
