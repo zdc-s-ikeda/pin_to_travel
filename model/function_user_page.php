@@ -72,13 +72,13 @@ function execute_query($link, $sql){
 function get_list($link) {
     $sql = "
             SELECT
-                place_name
+            *
             FROM
                 post_place_table
             JOIN
-                user_table
+                users_table
             ON
-                post_place_table.user_id = user_table.user_id
+                post_place_table.user_id = users_table.user_id
             JOIN
                 place_list_table
             ON
@@ -88,7 +88,7 @@ function get_list($link) {
             ON
                 place_list_table.route_id = route_table.route_id
             WHERE
-                route_id = 1
+                route_table.route_id = 1
             ";
             
     return get_as_array($link, $sql);

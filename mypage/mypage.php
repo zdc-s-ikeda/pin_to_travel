@@ -1,7 +1,7 @@
 <?php
 
 require_once '../model/function.php';
-require_once '../conf/const.php';
+require_once '../conf/const2.php';
 
 //変数の定義
 $route_id = 1;
